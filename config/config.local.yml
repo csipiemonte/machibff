@@ -1,0 +1,23 @@
+## YAML Template.
+---
+smartdata:
+    url: ''
+    user: ''
+    pwd: ''
+    
+notification_platform:
+    urls:
+        store: ''
+        notifier: ''
+        prefs: ''
+        status: ''
+    key: ''
+    services_tag: ''
+database:
+    host: ''
+    db: ''
+    user: ''
+    pwd: ''
+    driver: ''
+debug: ''
+version: v1

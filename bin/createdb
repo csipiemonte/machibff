@@ -1,0 +1,58 @@
+#!/usr/bin/env php
+
+<?php
+require __DIR__ . "/../vendor/autoload.php";
+
+use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Database\Schema\Blueprint;
+use Symfony\Component\Yaml\Yaml;
+
+$capsule = new Capsule();
+
+
+$env='dev';
+$config = Yaml::parseFile(__DIR__ . '/../config/config.' . $env . '.yml');
+// setting database
+$capsule = new Capsule();
+$capsule->addConnection([
+    "driver" => $config['database']['driver'],
+    "host" => $config['database']['host'],
+    "database" => $config['database']['db'],
+    "username" => $config['database']['user'],
+    "password" => $config['database']['pwd'],
+    "charset" => 'utf8'
+]);
+
+//Make this Capsule instance available globally.
+$capsule->setAsGlobal();
+
+// Setup the Eloquent ORM.
+$capsule->bootEloquent();
+
+Capsule::schema()->create('pins', function(Blueprint $table) {
+    $table->increments('id');
+    $table->string('fiscal_code', 20);
+    $table->string('value');
+    $table->enum('type', ['phone', 'email']);
+    $table->string('pin', 5);
+    $table->dateTime('expiration_time');
+    $table->boolean('verified')->default(false);
+});
+
+Capsule::schema()->create('services', function (Blueprint $table) {
+    $table->increments('id');
+    $table->string('title');
+    $table->string('text');
+    $table->string('img');
+    $table->string('link');
+    $table->string('category');
+});
+
+Capsule::schema()->create('users_services', function (Blueprint $table) {
+    $table->increments('id');
+    $table->integer('service_id')->unsigned();
+    $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
+    $table->string('user_id');
+    $table->boolean('value');
+    $table->unique(['user_id', 'service_id']);
+});

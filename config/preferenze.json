@@ -1,0 +1,22 @@
+{
+    "ente": {
+        "servizi":true,
+        "documenti":true,
+        "famiglia":true,
+        "tasse":true,
+        "catasto":true,
+        "curiosita":true,
+        "residenza":true,
+        "carta_identita":true,
+        "dati_elettorali":false,
+        "professione_istruzione":true
+    },
+    "utente":{
+        "homepage":{
+            "comunicazioni":true,
+            "servizi":true,
+            "documenti":true,
+            "curiosita":true
+        }
+    }
+}
