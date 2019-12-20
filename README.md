@@ -2,7 +2,8 @@
 
 Deploy
 
-    $ mkdir api && cd api
+    $ mkdir api
+		$ cd api
     $ git clone https://gitlab.csi.it/prodotti/machi/machibff.git v1
     $ cd v1
     $ composer install
